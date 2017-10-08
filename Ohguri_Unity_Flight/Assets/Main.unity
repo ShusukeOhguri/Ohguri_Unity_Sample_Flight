@@ -144,7 +144,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146219234}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 019b3e81440c5d9408b2b7fa98b142d3, type: 3}
   m_Name: 
@@ -528,17 +528,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Obj: {fileID: 242499044}
-  zrotForce: 4
+  zrotForce: 250
   MaxRot: 90
   MinRot: -90
-  rotupForce: 10
+  rotupForce: 500
   speed: 0
-  speedincrease: 4
-  speeddecrease: 1
-  Maxspeed: 30
+  speedincrease: 350
+  speeddecrease: 5
+  Maxspeed: 50
   Minspeed: 0
   takeoffspeed: 20
-  lift: 3
+  lift: 10
   minlift: 0
   hit: 0
 --- !u!4 &512323217
@@ -547,8 +547,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400034, guid: 2d7a8e5395e11ea498eb43938367b9a8, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 512323215}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: 0, y: 22.45, z: 1.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1575, z: 1.2}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 735002222}
@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 841158345}
   - component: {fileID: 841158344}
   - component: {fileID: 841158343}
+  - component: {fileID: 841158347}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -886,8 +887,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.01
+  far clip plane: 100000
   field of view: 45
   orthographic: 0
   orthographic size: 5
@@ -906,6 +907,14 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!45 &841158347
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841158341}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 45393aeb3a23e41448c136a05980c848, type: 2}
 --- !u!1 &892481602
 GameObject:
   m_ObjectHideFlags: 0
@@ -4410,7 +4419,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066775846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 019b3e81440c5d9408b2b7fa98b142d3, type: 3}
   m_Name: 
@@ -5063,7 +5072,7 @@ Transform:
   m_GameObject: {fileID: 1480460404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 597952686}
   - {fileID: 450432247}
