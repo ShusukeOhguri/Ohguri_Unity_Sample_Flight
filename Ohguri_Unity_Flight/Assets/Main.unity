@@ -791,7 +791,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 829355336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2a4c1c2a82904ee0b74f6439330d24e, type: 3}
   m_Name: 
@@ -5695,12 +5695,22 @@ Prefab:
     - target: {fileID: 114198423790776374, guid: dd575398727654c18920a6aa507ab28b,
         type: 2}
       propertyPath: minimumY
-      value: 0
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 114198423790776374, guid: dd575398727654c18920a6aa507ab28b,
         type: 2}
       propertyPath: maximumY
-      value: 0
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114198423790776374, guid: dd575398727654c18920a6aa507ab28b,
+        type: 2}
+      propertyPath: minimumX
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114198423790776374, guid: dd575398727654c18920a6aa507ab28b,
+        type: 2}
+      propertyPath: maximumX
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114819085837086314, guid: dd575398727654c18920a6aa507ab28b, type: 2}
