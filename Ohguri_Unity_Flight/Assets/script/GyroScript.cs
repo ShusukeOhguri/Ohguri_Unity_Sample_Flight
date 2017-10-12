@@ -2,37 +2,31 @@
 using System.Collections;
 
 public class GyroScript : MonoBehaviour {
-
-	#if UNITY_EDITOR
-		private Vector3 rot;
-	#endif
+	float rotationX = 0F;
+	float rotationY = 0F;
 
 	Quaternion currentGyro;
 
 	void Start(){
-		#if UNITY_EDITOR
-		rot = transform.rotation.eulerAngles;
-		#else
 		Input.gyro.enabled = true;
-		#endif
 	}
 
 	void Update () {
 		#if UNITY_EDITOR
 		float spd = Time.deltaTime*100.0f;
-		if(Input.GetKey(KeyCode.F)){
-			rot.y -= spd;
+		if(Input.GetKey(KeyCode.A)){
+			rotationY -= spd;
 		}
-		if(Input.GetKey(KeyCode.H)){
-			rot.y += spd;
+		if(Input.GetKey(KeyCode.D)){
+			rotationY += spd;
 		}
-		if(Input.GetKey(KeyCode.T)){
-			rot.x -= spd;
+		if(Input.GetKey(KeyCode.S)){
+			rotationX -= spd;
 		}
-		if(Input.GetKey(KeyCode.G)){
-			rot.x += spd;
+		if(Input.GetKey(KeyCode.W)){
+			rotationX += spd;
 		}
-		transform.rotation = Quaternion.Euler(rot); 
+		transform.localEulerAngles = new Vector3(rotationX,rotationY,0);
 		#else
 		currentGyro = Input.gyro.attitude;
 		this.transform.localRotation = 

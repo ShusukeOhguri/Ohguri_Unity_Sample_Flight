@@ -43,7 +43,7 @@ var spd = Obj.velocity.magnitude;
     	}
     	V=(Input.GetAxis ("Vertical"))*rotupForce;
     	if (V){
-    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(V*(spd/100), 0, 0);
+    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(-V*(spd/100), 0, 0);
     	}
     
     #else
