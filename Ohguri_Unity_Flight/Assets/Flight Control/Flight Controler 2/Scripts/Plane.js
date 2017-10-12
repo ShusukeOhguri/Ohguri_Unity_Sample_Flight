@@ -36,29 +36,29 @@ function Speed(){
 function Update () {
 var spd = Obj.velocity.magnitude;
 	Obj.GetComponent.<Rigidbody>().AddRelativeForce(0,0,-speed);
-	#if UNITY_EDITOR
-    	H=(Input.GetAxis ("Horizontal"))*zrotForce;
-    	if (H){
-    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(0, 0, H*(spd/100));
-    	}
-    	V=(Input.GetAxis ("Vertical"))*rotupForce;
-    	if (V){
-    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(-V*(spd/100), 0, 0);
-    	}
-    
-    #else
+//	#if UNITY_EDITOR
+//    	H = (Input.GetAxis ("Horizontal"))*zrotForce;
+//    	if (H){
+//    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(0, 0, H*(spd/100));
+//    	}
+//    	V=(Input.GetAxis ("Vertical"))*rotupForce;
+//    	if (V){
+//    	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(-V*(spd/100), 0, 0);
+//    	}
+//    
+//    #else
     	currentGyro = Input.gyro.attitude;
-    	H = Input.gyro.attitude.x * zrotForce;
+    	H = (Input.gyro.attitude.x) * zrotForce;
     	if (H){
     	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(0, 0, H*(spd/100));
     	}
-    	V = Input.gyro.attitude.y *rotupForce;
+    	V = (Input.gyro.attitude.y)*rotupForce;
     	if (V){
     	Obj.GetComponent.<Rigidbody>().AddRelativeTorque(V*(spd/100), 0, 0);
     	}
-//		this.transform.localRotation = 
-//			Quaternion.Euler(90, 90, 0) * ( new Quaternion (-currentGyro.x, -currentGyro.y, currentGyro.z, currentGyro.w)); 
-	#endif	
+		this.transform.localRotation = 
+			Quaternion.Euler(90, 90, 0) * ( new Quaternion (-currentGyro.x, -currentGyro.y, currentGyro.z, currentGyro.w)); 
+//	#endif	
     
     if(Maxspeed<=speed){
     speed=Maxspeed;
