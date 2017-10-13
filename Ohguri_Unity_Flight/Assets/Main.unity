@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019b3e81440c5d9408b2b7fa98b142d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spawn: {fileID: 146219235}
-  Missle: {fileID: 5400000, guid: 967aa85e9e1dbca40a9b2d531329a51f, type: 2}
-  waitTime: 1
-  speed: 100
+  Spawn: {fileID: 0}
+  Missle: {fileID: 0}
+  waitTime: 0
+  speed: 0
 --- !u!1 &242499043
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,13 +283,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8172f5f3cac5a4c8dbd8d9f875c6d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 242499044}
-  Strength: 55
-  Boom: {fileID: 400000, guid: ad26e381f73a38e4fbb59bdbd813f39c, type: 2}
-  Dead: {fileID: 400020, guid: db4adc65f443b38498458aad5f0c3f4d, type: 2}
-  WholePlane: {fileID: 512323215}
-  minPitch: 0
-  maxPitch: 70
+  plane: {fileID: 0}
+  Strength: 0
+  Boom: {fileID: 0}
+  Dead: {fileID: 0}
+  WholePlane: {fileID: 0}
+  minPitch: 1
+  maxPitch: 2
 --- !u!4 &242499047
 Transform:
   m_ObjectHideFlags: 0
@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fd48267d2a8a44e9c0b8d4b65de274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Turn: -5
-  Wheel: {fileID: 403833904}
+  Turn: 0
+  Wheel: {fileID: 0}
   plane: {fileID: 0}
 --- !u!1 &419343210
 GameObject:
@@ -518,8 +518,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 512323217}
-  - component: {fileID: 512323216}
   - component: {fileID: 512323218}
+  - component: {fileID: 512323216}
   m_Layer: 2
   m_Name: plane
   m_TagString: Untagged
@@ -530,29 +530,24 @@ GameObject:
 --- !u!114 &512323216
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114654888183861832, guid: ecf8081066b16404fad227497b985fad,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 512323215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78bdda5d7a5ca349a88920694936d2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 29bd153ee85854b6ca22b1c11226c262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Obj: {fileID: 242499044}
-  zrotForce: 250
+  obj: {fileID: 0}
   MaxRot: 90
   MinRot: -90
-  rotupForce: 500
-  speed: 0
-  speedincrease: 350
-  speeddecrease: 5
-  Maxspeed: 50
+  speed: 20
+  speedincrease: 20
+  Maxspeed: 0
   Minspeed: 0
-  takeoffspeed: 20
-  lift: 10
+  takeoffspeed: 0
+  lift: 0
   minlift: 0
-  hit: 0
 --- !u!4 &512323217
 Transform:
   m_ObjectHideFlags: 0
@@ -1087,8 +1082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446e1e3df6847c94995af7fba0019641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 242499047}
-  Trail: {fileID: 1023415832}
+  plane: {fileID: 0}
+  Trail: {fileID: 0}
   Emission: 0
 --- !u!199 &1023415831
 ParticleSystemRenderer:
@@ -1200,7 +1195,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1992635808
+  randomSeed: -1374128266
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4300,10 +4295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019b3e81440c5d9408b2b7fa98b142d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spawn: {fileID: 1066775847}
-  Missle: {fileID: 5400000, guid: 967aa85e9e1dbca40a9b2d531329a51f, type: 2}
-  waitTime: 1
-  speed: 100
+  Spawn: {fileID: 0}
+  Missle: {fileID: 0}
+  waitTime: 0
+  speed: 0
 --- !u!1 &1079410311
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,8 +4432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fd48267d2a8a44e9c0b8d4b65de274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Turn: -5
-  Wheel: {fileID: 403833904}
+  Turn: 0
+  Wheel: {fileID: 0}
   plane: {fileID: 0}
 --- !u!1 &1094453264
 GameObject:
@@ -4846,7 +4841,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1261881090}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2a4c1c2a82904ee0b74f6439330d24e, type: 3}
   m_Name: 
@@ -5276,9 +5271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fd48267d2a8a44e9c0b8d4b65de274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Turn: -1
-  Wheel: {fileID: 1608514306}
-  plane: {fileID: 242499044}
+  Turn: 0
+  Wheel: {fileID: 0}
+  plane: {fileID: 0}
 --- !u!4 &1629992135 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4577899575319704, guid: 274dab37c0c2147f893447825d59796a,
