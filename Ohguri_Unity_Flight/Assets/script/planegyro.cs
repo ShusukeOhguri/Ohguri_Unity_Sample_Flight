@@ -15,7 +15,7 @@ public class planegyro : MonoBehaviour {
 	public int 	 MaxRot = 90;
 	public int 	 MinRot = -90;
 	public float speed = 20;
-	public float speedincrease = 200;
+	public float speedincrease = 2000;
 	public int   Maxspeed = 0;
 	public int   Minspeed = 0;
 	public int   takeoffspeed = 0;
@@ -30,30 +30,30 @@ public class planegyro : MonoBehaviour {
 		InvokeRepeating("Speed", 1f, 1f);
 	}
 
-	void Speed(){
-			Mathf.Repeat(1,Time.time);
-			speed = speed + speedincrease;
-		}
+//	void Speed(){
+//		Mathf.Repeat(1,Time.time);
+//			speed = speed + speedincrease;
+//		}
 	
 	// Update is called once per frame
 	void Update () {
 		currentGyro = Input.gyro.attitude;
-		float spd = obj.velocity.magnitude;
-			obj.AddRelativeForce(0,0,-speed);
+//		float spd = obj.velocity.magnitude;
+//			obj.AddRelativeForce(speed,0,0);
 
-		float H = zrotForce;
-		if (H != 0){
-			obj.AddRelativeTorque(0, 0, H*(spd/100));
-		}
-
-		float V = rotupForce;
-		if (V != 0){
-			obj.AddRelativeTorque(-V*(spd/100), 0, 0);
-		}
+//		float H = zrotForce;
+//		if (H != 0){
+//			obj.AddRelativeTorque(0, 0, H*(spd/100));
+//		}
+//
+//		float V = rotupForce;
+//		if (V != 0){
+//			obj.AddRelativeTorque(-V*(spd/100), 0, 0);
+//		}
 
 //	
-//		this.transform.localRotation = 
-//			Quaternion.Euler(90, 270, 0) * (new Quaternion(-currentGyro.x, -currentGyro.y, currentGyro.z, currentGyro.w)); 
+		this.transform.localRotation = 
+			Quaternion.Euler(90, 270, 0) * (new Quaternion(currentGyro.z, currentGyro.y, currentGyro.x, currentGyro.w)); 
 
 		if(Maxspeed <= speed){
 			speed = Maxspeed;
