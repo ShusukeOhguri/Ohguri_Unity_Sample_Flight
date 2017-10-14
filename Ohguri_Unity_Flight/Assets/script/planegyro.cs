@@ -4,18 +4,18 @@ using UnityEngine;
 
 
 public class planegyro : MonoBehaviour {
-	float rotationX = 0F;
-	float rotationY = 0F;
+//	float rotationX = 0F;
+//	float rotationY = 0F;
 
 	Quaternion currentGyro;
 
 	public Rigidbody obj;
-//	public int   rotupForce = 1;
-//	public int   zrotForce  = 1;
+	public int   rotupForce = 0;
+	public int   zrotForce  = 0;
 	public int 	 MaxRot = 90;
 	public int 	 MinRot = -90;
-	public float speed = 0;
-	public float speedincrease = 0;
+	public float speed = 20;
+	public float speedincrease = 200;
 	public int   Maxspeed = 0;
 	public int   Minspeed = 0;
 	public int   takeoffspeed = 0;
@@ -23,12 +23,11 @@ public class planegyro : MonoBehaviour {
 	public int   minlift = 0;
 
 
-
 	// Use this for initialization
 	void Start () {
 		obj = GetComponent<Rigidbody>();
 		Input.gyro.enabled = true;
-		InvokeRepeating("Speed", 0.1f, 0.1f);
+		InvokeRepeating("Speed", 1f, 1f);
 	}
 
 	void Speed(){
@@ -39,8 +38,22 @@ public class planegyro : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		currentGyro = Input.gyro.attitude;
-		this.transform.localRotation = 
-			Quaternion.Euler(90, 90, 0) * ( new Quaternion (currentGyro.x, currentGyro.y, currentGyro.z, currentGyro.w)); 
+		float spd = obj.velocity.magnitude;
+			obj.AddRelativeForce(0,0,-speed);
+
+		float H = zrotForce;
+		if (H != 0){
+			obj.AddRelativeTorque(0, 0, H*(spd/100));
+		}
+
+		float V = rotupForce;
+		if (V != 0){
+			obj.AddRelativeTorque(-V*(spd/100), 0, 0);
+		}
+
+//	
+//		this.transform.localRotation = 
+//			Quaternion.Euler(90, 270, 0) * (new Quaternion(-currentGyro.x, -currentGyro.y, currentGyro.z, currentGyro.w)); 
 
 		if(Maxspeed <= speed){
 			speed = Maxspeed;
@@ -62,13 +75,13 @@ public class planegyro : MonoBehaviour {
 		if (speed > takeoffspeed){
 			obj.AddForce(0,lift,0);
 		}
-//
-//		if (Obj.GetComponent.<Rigidbody>().rotation.z > MaxRot){
-//			Obj.GetComponent.<Rigidbody>().rotation.z = MaxRot;
-//		}
-//		if (Obj.GetComponent.<Rigidbody>().rotation.z < MinRot){
-//			Obj.GetComponent.<Rigidbody>().rotation.z = MinRot;
-//		}
+
+		if (currentGyro.z > MaxRot){
+			currentGyro.z = MaxRot;
+		}
+		if (currentGyro.z < MinRot){
+			currentGyro.z = MinRot;
+		}
 	}
 }
 
