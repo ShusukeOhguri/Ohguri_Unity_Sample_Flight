@@ -25,6 +25,10 @@ public class planegyro : MonoBehaviour {
 	public int   lift = 0;
 	public int   minlift = 0;
 
+	float piching = 0;
+	float rolling = 0;
+	float yawing  = 0;
+
 
 
 //	float nowTime = 0f;
@@ -50,15 +54,13 @@ public class planegyro : MonoBehaviour {
 		float spd = obj.GetComponent<Rigidbody>().velocity.magnitude;
 		obj.transform.position += transform.forward * speed / 10;
 
-		float piching = - currentGyro.x;
-		float rolling = currentGyro.z;
-		float yawing  = - currentGyro.y;
+		yawing = -currentGyro.x;
+		rolling = currentGyro.z;
+		piching  = -currentGyro.y;
 
-//		Debug.Log ("piching:" + currentGyro.eulerAngles);
-//		Debug.Log ("rolling:" + rolling);
-//		Debug.Log ("yawing:" + yawing);
-//		Debug.Log (transform.localEulerAngles.x);
-
+		Debug.Log ("piching:"	+ (currentGyro.eulerAngles.y - 90)
+				 + ", rolling:"	+ (90 - currentGyro.eulerAngles.z)
+				 + ", yawing:"	+ (currentGyro.eulerAngles.x  - 330));
 
 		if(Maxspeed <= speed){
 			speed = Maxspeed;
@@ -103,7 +105,9 @@ public class planegyro : MonoBehaviour {
 //		}
 
 		this.transform.localRotation = 
-			Quaternion.Euler(90, 0, 0) * (new Quaternion(piching, yawing, rolling, currentGyro.w)); 
+			Quaternion.Euler(90, 0, 0) * (new Quaternion(yawing, piching, rolling, currentGyro.w)); 
+
+//		this.transform.Rotate(0.0f, 0.0f, x);
 	}
 }
 
