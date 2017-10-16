@@ -4,8 +4,6 @@ using UnityEngine;
 
 
 public class planegyro : MonoBehaviour {
-//	float rotationX = 0F;
-//	float rotationY = 0F;
 
 	Quaternion currentGyro;
 
@@ -26,13 +24,19 @@ public class planegyro : MonoBehaviour {
 	public int   minlift = 0;
 
 	float piching = 0;
+	float pichingangle = 0;
+	float pichingoffset = Mathf.Sin(120);
+	float pichingclearance = Mathf.Sin(3);
+
 	float rolling = 0;
+	float rollingangle = 0;
+	float rollingoffset = Mathf.Sin(180);
+	float rollingclearance = Mathf.Sin(3);
+
 	float yawing  = 0;
-
-
-
-//	float nowTime = 0f;
-//	int count = 0;
+	float yawingangle = 0;
+	float yawingoffset = Mathf.Sin(0);
+	float yawingclearance = Mathf.Sin(3);
 
 
 	// Use this for initialization
@@ -45,22 +49,20 @@ public class planegyro : MonoBehaviour {
 	void Speed(){
 		Mathf.Repeat(1, Time.deltaTime);
 			speed = speed + speedincrease;
-//		Debug.Log (speed);
 		}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		currentGyro = Input.gyro.attitude;
-		float spd = obj.GetComponent<Rigidbody>().velocity.magnitude;
 		obj.transform.position += transform.forward * speed / 10;
 
-		yawing = -currentGyro.x;
-		rolling = currentGyro.z;
-		piching  = -currentGyro.y;
+		yawing  = currentGyro.eulerAngles.x - 300;
+		rolling = currentGyro.eulerAngles.z - 80;
+		piching = -currentGyro.eulerAngles.y + 60;
 
-		Debug.Log ("piching:"	+ (currentGyro.eulerAngles.y - 90)
-				 + ", rolling:"	+ (90 - currentGyro.eulerAngles.z)
-				 + ", yawing:"	+ (currentGyro.eulerAngles.x  - 330));
+		pichingangle = pichingangle + piching/50;
+		rollingangle = rollingangle + rolling/10;
+		yawingangle  = yawingangle  + yawing /500;
 
 		if(Maxspeed <= speed){
 			speed = Maxspeed;
@@ -69,45 +71,7 @@ public class planegyro : MonoBehaviour {
 			speed = speed;
 		}
 
-//		if(piching.eulerangles >= Maxpiching){
-//			piching = Maxpiching;
-//		}
-//		if(piching.eulerAngles <= Minpiching){
-//			piching = Minpiching;
-//		}
-//
-//		if(rolling >= Maxrolling){
-//			rolling = Maxrolling;
-//		}
-//		if(rolling <= Minrolling){
-//			rolling = Minrolling;
-//		}
-//
-//		if(yawing >= Maxyawing){
-//			yawing = Maxyawing;
-//		}
-//		if(yawing <= Minyawing){
-//			yawing = Minyawing;
-//		}
-
-//		if (speed < takeoffspeed){
-//			obj.AddForce(0,minlift,0);
-//		}
-//		if (speed > takeoffspeed){
-//			obj.AddForce(0,lift,0);
-//		}
-
-//		if (currentGyro.z > MaxRot){
-//			currentGyro.z = MaxRot;
-//		}
-//		if (currentGyro.z < MinRot){
-//			currentGyro.z = MinRot;
-//		}
-
-		this.transform.localRotation = 
-			Quaternion.Euler(90, 0, 0) * (new Quaternion(yawing, piching, rolling, currentGyro.w)); 
-
-//		this.transform.Rotate(0.0f, 0.0f, x);
+		this.transform.localRotation = Quaternion.Euler(pichingangle, yawingangle, rollingangle);
 	}
 }
 
