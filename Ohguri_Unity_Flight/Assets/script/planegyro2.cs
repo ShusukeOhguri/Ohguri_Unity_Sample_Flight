@@ -67,49 +67,49 @@ public class planegyro2 : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		#if UNITY_ANDROID
-			Debug.Log("android");
-			float fps = 1f / Time.deltaTime;
-			Debug.LogFormat("{0}fps", fps);
-			
-			currentGyro = Input.gyro.attitude;
-			obj.transform.position += transform.forward * speed /10;
-
-			Piching = -currentGyro.eulerAngles.y + PichingOffset;
-//			Yawing  = -currentGyro.eulerAngles.x;
-			Rolling = currentGyro.eulerAngles.z + RollingOffset;
-
-//			Debug.Log(Piching);
-			Debug.Log(Rolling);
-
-			obj.transform.position += transform.forward * speed /10;
-			
-			obj.AddRelativeForce(0,0,-speed);
-			
-			float H = Rolling * zrotForce;
-//			obj.AddRelativeTorque(0, 0, H  * speed / 1);
-			
-			float V = Piching * rotupForce;
-//			obj.AddRelativeTorque(V * speed / 1000, 0, 0);
-
-			this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(0, 90, 0), 45 * H * speed);
-
-
-			if (Piching <= Piching + PichingAngleClearance || Piching >= Piching - PichingAngleClearance){
-				if (Piching <= MaxPichingSpeed || Piching >= -MaxPichingSpeed){
-					AddPichingAngle = AddPichingAngle + Piching / fps;
-				}else{
-					AddPichingAngle = AddPichingAngle;
-				}
-			}else{
-				AddPichingAngle = AddPichingAngle;
-			}
-//		
-			if(Rolling <= Rolling + RollingAngleClearance || Rolling >= Rolling - RollingAngleClearance){
-				AddRollingAngle = AddRollingAngle + Rolling / fps;
-			}else{
-				AddRollingAngle = AddRollingAngle;
-			}
-//		
+//			Debug.Log("android");
+//			float fps = 1f / Time.deltaTime;
+//			Debug.LogFormat("{0}fps", fps);
+//			
+//			currentGyro = Input.gyro.attitude;
+//			obj.transform.position += transform.forward * speed /10;
+//
+//			Piching = -currentGyro.eulerAngles.y + PichingOffset;
+////			Yawing  = -currentGyro.eulerAngles.x;
+//			Rolling = currentGyro.eulerAngles.z + RollingOffset;
+//
+////			Debug.Log(Piching);
+//			Debug.Log(Rolling);
+//
+//			obj.transform.position += transform.forward * speed /10;
+//			
+//			obj.AddRelativeForce(0,0,-speed);
+//			
+//			float H = Rolling * zrotForce;
+////			obj.AddRelativeTorque(0, 0, H  * speed / 1);
+//			
+//			float V = Piching * rotupForce;
+////			obj.AddRelativeTorque(V * speed / 1000, 0, 0);
+//
+//			this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(0, 90, 0), 45 * H * speed);
+//
+//
+//			if (Piching <= Piching + PichingAngleClearance || Piching >= Piching - PichingAngleClearance){
+//				if (Piching <= MaxPichingSpeed || Piching >= -MaxPichingSpeed){
+//					AddPichingAngle = AddPichingAngle + Piching / fps;
+//				}else{
+//					AddPichingAngle = AddPichingAngle;
+//				}
+//			}else{
+//				AddPichingAngle = AddPichingAngle;
+//			}
+////		
+//			if(Rolling <= Rolling + RollingAngleClearance || Rolling >= Rolling - RollingAngleClearance){
+//				AddRollingAngle = AddRollingAngle + Rolling / fps;
+//			}else{
+//				AddRollingAngle = AddRollingAngle;
+//			}
+////		
 //		
 //				if (AddPichingAngle < MaxPichingAngle || AddPichingAngle > -MaxPichingAngle){
 //					AddPichingAngle = AddPichingAngle;
@@ -123,22 +123,23 @@ public class planegyro2 : MonoBehaviour {
 //					AddRollingAngle = MaxRollingAngle;
 //					Debug.Log("Notpiching");
 //				}
-//
-//
 
-
-		#else
+		#elif UNITY_EDITOR
 			Debug.Log("unity");
 			obj.transform.position += transform.forward * speed /10;
 			
 			obj.AddRelativeForce(0,0,-speed);
-			
+
+			obj.angularDrag = 0.01f;
+
+			float V = (Input.GetAxis ("Vertical")) * rotupForce;		
 			float H = (Input.GetAxis ("Horizontal")) * zrotForce;
-			obj.AddRelativeTorque(0, 0, -H  * speed / 500);
+			obj.AddRelativeTorque(-V * speed / 100, 0, 0);
+			obj.AddRelativeTorque(0, 0, -H  * speed / 100);
 			
-			float V = (Input.GetAxis ("Vertical")) * rotupForce;
-			obj.AddRelativeTorque(-V * speed / 500, 0, 0);
-			
+			if (H == 0 && V == 0){
+				obj.angularDrag = 5f;
+			}
 		#endif
 
 		if(Maxspeed <= speed) { 
