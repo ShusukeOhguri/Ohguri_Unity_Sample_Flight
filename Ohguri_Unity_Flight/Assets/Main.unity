@@ -568,7 +568,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -584,21 +584,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0e183533adc44efb8ffdea4265a988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 0}
-  speed: 0
+  obj: {fileID: 512323218}
   speedincrease: 1
   Maxspeed: 30
-  zrotForce: 10
-  rotupForce: 10
-  diveCamera: {fileID: 0}
-  Maxpiching: 60
-  Minpiching: -60
-  Maxrolling: 30
-  Minrolling: -30
-  Maxyawing: 45
-  Minyawing: -45
-  MaxRot: 90
-  MinRot: -90
+  zrotForce: 1
+  rotupForce: 1
+  PichingOffset: -270
+  PichingAngleClearance: 10
+  RollingOffset: 270
+  RollingAngleClearance: 10
 --- !u!4 &597952686 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400054, guid: 313eda13f7c5ca0418baa6dfde31d7a6, type: 3}
