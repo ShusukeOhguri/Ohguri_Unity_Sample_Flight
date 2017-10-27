@@ -6,6 +6,7 @@ public class GyroScript : MonoBehaviour {
 //	float rotationY = 0F;
 
 	Quaternion currentGyro;
+	Rigidbody diveCamera;
 
 	void Start(){
 		Input.gyro.enabled = true;
