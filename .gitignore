@@ -36,3 +36,5 @@ Thumbs.db
 *.pyc #python bytecode cache, for some plugins.
 sysinfo.txt #Unity3D Generated File On Crash Reports
 
+Ohguri_Unity_Flight/Temp/UnityLockfile
+Ohguri_Unity_Flight/Temp/UnityLockfile
