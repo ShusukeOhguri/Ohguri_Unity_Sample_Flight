@@ -38,7 +38,7 @@ public class planegyro : MonoBehaviour {
 			speed = speed;
 		}
 			
-		this.transform.localRotation = Quaternion.Euler (90, 45, 0)
+		this.transform.localRotation = Quaternion.Euler (90, 180, 0)
 									   	* (new Quaternion(-currentGyro.x, -currentGyro.y, currentGyro.z, currentGyro.w));
 	}
 }

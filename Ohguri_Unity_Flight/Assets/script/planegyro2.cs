@@ -11,7 +11,7 @@ public class planegyro2 : MonoBehaviour {
 	public float Maxspeed      = 30;
 	public int   zrotForce     = 1;
 	public int   rotupForce    = 1;
-	public int	 YawingForce   = 1;
+	//public int	 YawingForce   = 1;
 
 	float speed = 0;
 
@@ -24,12 +24,12 @@ public class planegyro2 : MonoBehaviour {
 		public float RollingOffset 		   = 270;
 		public float RollingAngleClearance = 10;
 
-		public float YawingOffset 		   = 0;
-		public float YawingAngleClearance  = 10;
+		//public float YawingOffset 		   = 0;
+		//public float YawingAngleClearance  = 10;
 
 		float Piching = 0;
 		float Rolling = 0;
-		float Yawing  = 0;
+		//float Yawing  = 0;
 	#endif
 
 
@@ -47,36 +47,36 @@ public class planegyro2 : MonoBehaviour {
 
 	void Rotation(){
 		#if UNITY_ANDROID
-			Piching =  currentGyro.eulerAngles.y + PichingOffset;
+			Piching = currentGyro.eulerAngles.y + PichingOffset;
 			Rolling = -currentGyro.eulerAngles.z + RollingOffset;
 
-			if(currentGyro.eulerAngles.x <= 180){
-				Yawing  =  -currentGyro.eulerAngles.x + YawingOffset;
-			}
-			else{
-				Yawing  =  -currentGyro.eulerAngles.x + 360 +YawingOffset;
-			}
+			//if(currentGyro.eulerAngles.x <= 180){
+			//	Yawing  =  -currentGyro.eulerAngles.x + YawingOffset;
+			//}
+			//else{
+			//	Yawing  =  -currentGyro.eulerAngles.x + 360 +YawingOffset;
+			//}
 			
 			if(Mathf.Abs(Rolling) >= RollingAngleClearance){
 				float H = -Rolling * zrotForce;
 				obj.angularDrag = 5 / Rolling;
-				obj.AddRelativeTorque(0, 0, H * speed / 5000);
+				obj.AddRelativeTorque(0, 0, H / 500);
 				Debug.Log("Rolling" + Rolling);
 			}
 			
 			if(Mathf.Abs(Piching) >= PichingAngleClearance){
 				float V = Piching * rotupForce;
 				obj.angularDrag = 5 / Piching;
-				obj.AddRelativeTorque(V * speed / 10000, 0, 0);
+				obj.AddRelativeTorque(V / 1000, 0, 0);
 				Debug.Log("Piching" + Piching);
 			}
 
-			if(Mathf.Abs(Yawing) >= YawingAngleClearance){
-				float Y = Yawing * YawingForce;
-				obj.angularDrag = 5 / Yawing;
-				obj.AddRelativeTorque(0, Y * speed / 10000, 0);
-				Debug.Log("Yawing" + Yawing);
-			}
+			//if(Mathf.Abs(Yawing) >= YawingAngleClearance){
+			//	float Y = Yawing * YawingForce;
+			//	obj.angularDrag = 5 / Yawing;
+			//	obj.AddRelativeTorque(0, Y / 1000, 0);
+			//	Debug.Log("Yawing" + Yawing);
+			//}
 		#elif UNITY_EDITOR
 			float V = (Input.GetAxis ("Vertical")) * rotupForce;		
 			float H = (Input.GetAxis ("Horizontal")) * zrotForce;
