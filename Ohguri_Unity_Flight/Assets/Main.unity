@@ -587,12 +587,15 @@ MonoBehaviour:
   obj: {fileID: 512323218}
   speedincrease: 1
   Maxspeed: 30
-  zrotForce: 1
-  rotupForce: 1
+  zrotForce: 10
+  rotupForce: 10
+  YawingForce: 1
   PichingOffset: -270
   PichingAngleClearance: 10
   RollingOffset: 270
   RollingAngleClearance: 10
+  YawingOffset: 0
+  YawingAngleClearance: 10
 --- !u!4 &597952686 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400054, guid: 313eda13f7c5ca0418baa6dfde31d7a6, type: 3}

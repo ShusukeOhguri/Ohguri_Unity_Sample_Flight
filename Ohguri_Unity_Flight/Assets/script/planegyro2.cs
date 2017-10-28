@@ -81,7 +81,7 @@ public class planegyro2 : MonoBehaviour {
 			float V = (Input.GetAxis ("Vertical")) * rotupForce;		
 			float H = (Input.GetAxis ("Horizontal")) * zrotForce;
 			
-			if (H != 0 && V != 0){
+			if (H != 0 || V != 0){
 				obj.angularDrag = 0.01f;
 			}
 
@@ -99,7 +99,7 @@ public class planegyro2 : MonoBehaviour {
 			Debug.Log("unity");
 		#endif
 
-		obj.angularDrag = 50f;
+		obj.angularDrag = 10f;
 		obj.transform.position += transform.forward * speed /10;
 		obj.AddRelativeForce(0,0,-speed);
 
