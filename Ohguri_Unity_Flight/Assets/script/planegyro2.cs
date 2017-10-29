@@ -6,12 +6,17 @@ using UnityEngine;
 public class planegyro2 : MonoBehaviour {
 
 	public Rigidbody obj;	   
+	//public GameObject plane;
 
 	public float speedincrease = 1;
 	public float Maxspeed      = 30;
 	public int   zrotForce     = 1;
 	public int   rotupForce    = 1;
 	//public int	 YawingForce   = 1;
+
+
+	public float PichingInfo;
+	public float RollingInfo;
 
 	float speed = 0;
 
@@ -44,6 +49,7 @@ public class planegyro2 : MonoBehaviour {
 		Mathf.Repeat(1, Time.deltaTime);
 		speed = speed + speedincrease;
 	}
+
 
 	void Rotation(){
 		#if UNITY_ANDROID
@@ -91,25 +97,37 @@ public class planegyro2 : MonoBehaviour {
 	}
 		
 	// Update is called once per frame
-	void FixedUpdate () {
+	public void FixedUpdate () {
 		#if UNITY_ANDROID
-			Debug.Log("android");
-			currentGyro = Input.gyro.attitude;
+		Debug.Log ("android");
+		currentGyro = Input.gyro.attitude;
 		#elif UNITY_EDITOR
 			Debug.Log("unity");
 		#endif
 
 		obj.angularDrag = 10f;
-		obj.transform.position += transform.forward * speed /10;
-		obj.AddRelativeForce(0,0,-speed);
+		obj.transform.position += transform.forward * speed / 10;
+		obj.AddRelativeForce (0, 0, -speed);
 
-		if(Maxspeed <= speed) { 
+		if (Maxspeed <= speed) { 
 			speed = Maxspeed - 1;
-		} 
-		else{
+		} else {
 			speed = speed;
 		}
 			
-		Rotation();
+		Rotation ();
+
+		PichingInfo = obj.transform.eulerAngles.x;
+		if (obj.transform.eulerAngles.z <= 180) {
+			RollingInfo = obj.transform.eulerAngles.z;
+		}else if (obj.transform.eulerAngles.z > 180) {
+			RollingInfo = obj.transform.eulerAngles.z - 360;
+		}
+
+		if (obj.transform.eulerAngles.x <= 180) {
+			PichingInfo = obj.transform.eulerAngles.x;
+		}else if (obj.transform.eulerAngles.x > 180) {
+			PichingInfo = obj.transform.eulerAngles.x - 360;
+		}
 	}
 }
