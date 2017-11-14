@@ -586,9 +586,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obj: {fileID: 512323218}
   speedincrease: 1
-  Maxspeed: 100
-  zrotForce: 1
-  rotupForce: 1
+  Maxspeed: 200
+  zrotForce: 10
+  rotupForce: 10
   PichingInfo: 0
   RollingInfo: 0
   PichingOffset: -270
