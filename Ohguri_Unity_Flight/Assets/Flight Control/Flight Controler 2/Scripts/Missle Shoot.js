@@ -8,7 +8,7 @@ private var ray : Ray;
 private var hit : RaycastHit;
 
 function Update () {
-    if(Input.GetKeyDown(KeyCode.Mouse1))
+    if(Input.GetAxis("MissleShoot"))
     {
     var instance : Rigidbody = Instantiate(Missle, Spawn.position, Spawn.rotation);
         instance.velocity = Spawn.forward * speed;

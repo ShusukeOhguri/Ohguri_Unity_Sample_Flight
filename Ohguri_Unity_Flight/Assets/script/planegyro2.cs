@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class planegyro2 : MonoBehaviour {
 
-	public Rigidbody obj;	   
+	public Rigidbody obj;
+
+	public GameObject explosion;
+
 	public float speedincrease = 1;
 	public float Maxspeed      = 30;
 	public int   zrotForce     = 1;
@@ -13,7 +16,7 @@ public class planegyro2 : MonoBehaviour {
 	//public int	 YawingForce   = 1;
 
 	public float PichingInfo;
-	public float RollingInfo;
+	public float RollingInfo = 0;
 
 
 
@@ -22,10 +25,10 @@ public class planegyro2 : MonoBehaviour {
 	#if UNITY_ANDROID
 		Quaternion currentGyro;
 		public double CenteringStartAngle = 0.5;
-		public float PichingOffset		   = -270;
+		public float PichingOffset		   = -90;
 		public float PichingAngleClearance = 10;
 
-		public float RollingOffset 		   = 270;
+		public float RollingOffset 		   = 90;
 		public float RollingAngleClearance = 10;
 
 		//public float YawingOffset 		   = 0;
@@ -45,6 +48,7 @@ public class planegyro2 : MonoBehaviour {
 		obj = this.GetComponent<Rigidbody> ();
 		Input.gyro.enabled = true;
 		InvokeRepeating("Speed", 0.1f, 0.1f);
+		InvokeRepeating("Info", 0.1f, 0.1f);
 		InvokeRepeating("LastInfo", 0.1f, 0.1f);
 	}
 
@@ -53,15 +57,37 @@ public class planegyro2 : MonoBehaviour {
 		speed = speed + speedincrease;
 	}
 
+	void Info(){
+		if (obj.transform.eulerAngles.z <= 180) {
+			RollingInfo = obj.transform.eulerAngles.z;
+		}
+		if (obj.transform.eulerAngles.z > 180) {
+			RollingInfo = obj.transform.eulerAngles.z - 360;
+		}
+		if (obj.transform.eulerAngles.x <= 180) {
+			PichingInfo = obj.transform.eulerAngles.x;
+		}
+		if (obj.transform.eulerAngles.x > 180) {
+			PichingInfo = obj.transform.eulerAngles.x - 360;
+		}
+	}
+
 	void LastInfo(){
 		Mathf.Repeat(1, Time.deltaTime);
 		LasttimeRolling = RollingInfo;
 	}
 
+	// void OnTriggerEnter(Collider coll){
+ //      if(coll.gameObject.tag == "Plane Explosion") {
+ //        Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+ //        Destroy (this.gameObject);
+ //      }
+ //   }
+
 
 	void Rotation(){
 		#if UNITY_ANDROID
-			Piching = currentGyro.eulerAngles.y + PichingOffset;
+			// Piching = currentGyro.eulerAngles.y + PichingOffset;
 			Rolling = -currentGyro.eulerAngles.z + RollingOffset;
 
 			//if(currentGyro.eulerAngles.x <= 180){
@@ -70,58 +96,34 @@ public class planegyro2 : MonoBehaviour {
 			//else{
 			//	Yawing  =  -currentGyro.eulerAngles.x + 360 +YawingOffset;
 			//}
-
-			if (obj.transform.eulerAngles.z <= 180) {
-				RollingInfo = obj.transform.eulerAngles.z;
-			}
-			if (obj.transform.eulerAngles.z > 180) {
-				RollingInfo = obj.transform.eulerAngles.z - 360;
-			}
 			
-			if (obj.transform.eulerAngles.x <= 180) {
-				PichingInfo = obj.transform.eulerAngles.x;
-			}
-			if (obj.transform.eulerAngles.x > 180) {
-				PichingInfo = obj.transform.eulerAngles.x - 360;
-			}
-				
 			if(Mathf.Abs(Rolling) >= RollingAngleClearance){
-				if(Mathf.Abs(Rolling - LasttimeRolling) > 1){
-					if (Rolling - LasttimeRolling < 0){
-						Drag = -(Rolling - LasttimeRolling);
-					}else if (Rolling - LasttimeRolling > 0) {
-						Drag = Rolling - LasttimeRolling;
-					}
-					float H = Rolling * zrotForce * Drag / 10;
-					obj.AddRelativeTorque(0, 0,  H / 100);
-				}
-				else if(Mathf.Abs(Rolling - LasttimeRolling) < 3){
-					float H = Rolling * zrotForce;
-					obj.AddRelativeTorque(0, 0,  -H / 500);
-				}
-				Debug.Log("Rolling" + Rolling);
-			}else{
-				if(RollingInfo < -CenteringStartAngle){
-					obj.AddRelativeTorque(0, 0, -RollingInfo / 10);
+				float H = -Rolling * zrotForce;
+				obj.angularDrag = 5 / Rolling;
+				obj.AddRelativeTorque(0, 0, H / 500);
+
+				if(RollingInfo < -CenteringStartAngle){//ローリングが正の数ならLeft、負の数はRight
+					obj.AddRelativeTorque(0, 0, RollingInfo / 100);
 				}
 				if (RollingInfo > CenteringStartAngle){
-					obj.AddRelativeTorque(0, 0, -RollingInfo / 10);
-				} 
-			} 
+					obj.AddRelativeTorque(0, 0, -RollingInfo / 100);
+				}
+				Debug.Log("Rolling" + Rolling);
+			}
 			
-			if(Mathf.Abs(Piching) >= PichingAngleClearance){
-				float V = Piching * rotupForce;
-				//obj.angularDrag = 5 / Piching;
-			//	obj.AddRelativeTorque(V / 1000, 0, 0);
-				Debug.Log("Piching" + Piching);
-			}else{
-				if(PichingInfo < -CenteringStartAngle){
-					obj.AddRelativeTorque(-PichingInfo / 10, 0, 0);
-				}
-				if (PichingInfo > CenteringStartAngle){
-					obj.AddRelativeTorque(PichingInfo / 10, 0, 0);
-				}
-			} 
+			// if(Mathf.Abs(Piching) >= PichingAngleClearance){
+			// 	// float V = Piching * rotupForce;
+			// 	// obj.angularDrag = 5 / Piching;
+			// 	obj.AddRelativeTorque(V / 1000, 0, 0);
+			// }else{
+			// 	if(PichingInfo < -CenteringStartAngle){
+			// 		obj.AddRelativeTorque(-PichingInfo / 10, 0, 0);
+			// 	}
+			// 	if (PichingInfo > CenteringStartAngle){
+			// 		obj.AddRelativeTorque(PichingInfo / 10, 0, 0);
+			// 	}
+			// 	Debug.Log("Piching" + Piching);
+			// } 
 			 
 
 			//if(Mathf.Abs(Yawing) >= YawingAngleClearance){
